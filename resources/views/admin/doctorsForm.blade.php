@@ -24,12 +24,12 @@
     </nav>
     <hr>
     @if ($page == 'create')
-        <form action="{{ route('admin-store-patient') }}" method="POST" style="width: 100%;
+        <form action="{{ route('admin-store-doctor') }}" method="POST" style="width: 100%;
         max-width: 530px;
         padding: 15px;
         margin: 0 auto">
             {{ csrf_field() }}
-            <h1 class="h3 mb-5 font-weight-normal text-center">Add Patient</h1>
+            <h1 class="h3 mb-5 font-weight-normal text-center">Add Doctor</h1>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul style="list-style: none">
@@ -45,16 +45,16 @@
                     <input type="text" name="first_name" id="inputFName" class="form-control mb-3">
                     <label for="inputLName">Last Name</label>
                     <input type="text" name="last_name" id="inputLName" class="form-control mb-3">
-                    <label for="inputDob">Date of Birth</label>
-                    <input type="date" name="dob" id="inputDob" class="form-control mb-3">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone_number" id="inputPassword" class="form-control mb-3">
+                    <label for="inputLName">Category</label>
+                    <select name="category_id" class="form-control mb-3">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
-                    <label>Passport Number</label>
-                    <input type="text" name="passport_number" id="inputPassword" class="form-control mb-3">
-                    <label>Address</label>
-                    <input type="text" name="address" id="inputPassword" class="form-control mb-3">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone_number" id="inputPassword" class="form-control mb-3">
                     <label for="inputEmail">Email address</label>
                     <input type="email" name="email" id="inputEmail" class="form-control mb-3" autofocus="">
                     <label for="inputPassword">Password</label>
@@ -64,12 +64,12 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
         </form>
     @else
-        <form action="{{ route('admin-update-patient', ['id' => $patient->id]) }}" method="POST" style="width: 100%;
+        <form action="{{ route('admin-update-doctor', ['id' => $doctor->id]) }}" method="POST" style="width: 100%;
     max-width: 530px;
     padding: 15px;
     margin: 0 auto">
             {{ csrf_field() }}
-            <h1 class="h3 mb-5 font-weight-normal text-center">Update Patient</h1>
+            <h1 class="h3 mb-5 font-weight-normal text-center">Update Doctor</h1>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul style="list-style: none">
@@ -83,27 +83,25 @@
                 <div>
                     <label for="inputFName">First Name</label>
                     <input type="text" name="first_name" id="inputFName" class="form-control mb-3"
-                        value="{{ $patient->first_name }}">
+                        value="{{ $doctor->first_name }}">
                     <label for="inputLName">Last Name</label>
                     <input type="text" name="last_name" id="inputLName" class="form-control mb-3"
-                        value="{{ $patient->last_name }}">
-                    <label for="inputDob">Date of Birth</label>
-                    <input type="date" name="dob" id="inputDob" class="form-control mb-3"
-                        value="{{ date('Y-m-d', strtotime($patient->dob)) }}">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone_number" id="inputPassword" class="form-control mb-3"
-                        value="{{ $patient->phone_number }}">
+                        value="{{ $doctor->last_name }}">
+                    <label for="inputLName">Category</label>
+                    <select name="category_id" class="form-control mb-3">
+                        <option value="{{ $doctor->category->id }}">{{ $doctor->category->title }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
-                    <label>Passport Number</label>
-                    <input type="text" name="passport_number" id="inputPassword" class="form-control mb-3"
-                        value="{{ $patient->passport_number }}">
-                    <label>Address</label>
-                    <input type="text" name="address" id="inputPassword" class="form-control mb-3"
-                        value="{{ $patient->address }}">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone_number" id="inputPassword" class="form-control mb-3"
+                        value="{{ $doctor->phone_number }}">
                     <label for="inputEmail">Email address</label>
                     <input type="email" name="email" id="inputEmail" class="form-control mb-3" autofocus=""
-                        value="{{ $patient->email }}">
+                        value="{{ $doctor->email }}">
                     <label for="inputPassword">Password</label>
                     <input type="text" name="password" id="inputPassword" class="form-control mb-3">
                 </div>

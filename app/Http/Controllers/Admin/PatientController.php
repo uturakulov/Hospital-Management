@@ -65,7 +65,7 @@ class PatientController extends Controller
         $patient->email = $request->email;
         $patient->password = Hash::make($request->password);
         $patient->save();
-        //comment
+
         return redirect()->route('admin-patients')->with('message', 'Patient Successfully Added!');
     }
 
@@ -88,7 +88,11 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = 'update';
+
+        $patient = Patient::findOrFail($id);
+
+        return view('admin.patientsForm', compact('page', 'patient'));
     }
 
     /**
@@ -100,7 +104,21 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $patient = Patient::findOrFail($id);
+        $patient->first_name = $request->first_name;
+        $patient->last_name = $request->last_name;
+        $patient->dob = $request->dob;
+        $patient->phone_number = $request->phone_number;
+        $patient->passport_number = $request->passport_number;
+        $patient->address = $request->address;
+        $patient->name = $request->first_name . $request->last_name;
+        $patient->email = $request->email;
+        if ($request->password != null) {
+            $patient->password = Hash::make($request->password);
+        }
+        $patient->save();
+
+        return redirect()->route('admin-patients')->with('message', 'Patient Successfully Updated!');
     }
 
     /**
@@ -111,6 +129,10 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $patient = Patient::findOrFail($id);
+
+        $patient->delete();
+
+        return redirect()->back()->with('message', 'Patient Successfully Deleted!');
     }
 }

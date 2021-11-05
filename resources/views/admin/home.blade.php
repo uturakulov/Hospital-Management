@@ -18,6 +18,7 @@
         <h1>Hospital | Admin</h1>
         <div>
             <a href="{{ route('admin-doctor') }}" class="mr-5">Doctors</a>
+            <a href="{{ route('admin-patients') }}" class="mr-5">Patients</a>
             <a href="{{ route('logout') }}" class="mr-5">Logout</a>
         </div>
     </nav>

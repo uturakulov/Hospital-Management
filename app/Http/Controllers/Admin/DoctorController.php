@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\DoctorCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -29,7 +31,11 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        $page = 'create';
+
+        $categories = DoctorCategory::all();
+
+        return view('admin.doctorsForm', compact('page', 'categories'));
     }
 
     /**
@@ -40,7 +46,26 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        validator($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'category_id' => 'required',
+            'email' => ['required', 'email'],
+            'password' => 'required',
+        ])->validate();
+
+        $doctor = new Doctor();
+        $doctor->first_name = $request->first_name;
+        $doctor->last_name = $request->last_name;
+        $doctor->phone_number = $request->phone_number;
+        $doctor->category_id = $request->category_id;
+        $doctor->name = $request->first_name . $request->last_name;
+        $doctor->email = $request->email;
+        $doctor->password = Hash::make($request->password);
+        $doctor->save();
+
+        return redirect()->route('admin-doctor')->with('message', 'Doctor Successfully Added!');
     }
 
     /**
@@ -62,7 +87,13 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = DoctorCategory::all();
+
+        $doctor = Doctor::findOrFail($id);
+
+        $page = 'update';
+
+        return view('admin.doctorsForm', compact('page', 'doctor', 'categories'));
     }
 
     /**
@@ -74,7 +105,19 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        $doctor->first_name = $request->first_name;
+        $doctor->last_name = $request->last_name;
+        $doctor->phone_number = $request->phone_number;
+        $doctor->category_id = $request->category_id;
+        $doctor->name = $request->first_name . $request->last_name;
+        $doctor->email = $request->email;
+        if ($request->password != null) {
+            $doctor->password = Hash::make($request->password);
+        }
+        $doctor->save();
+
+        return redirect()->route('admin-doctor')->with('message', 'Doctor Successfully Updated!');
     }
 
     /**
@@ -85,6 +128,10 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+
+        $doctor->delete();
+
+        return redirect()->route('admin-doctor')->with('message', 'Doctor Successfully Deleted!');
     }
 }
