@@ -23,12 +23,24 @@
         <div style="border-radius: 50px;
     box-shadow:  -9px 9px 18px #e6e6e6,
     9px -9px 18px #ffffff;
-    padding: 50px">
-            <h2 class="mb-5">{{ $user->first_name . ' ' . $user->last_name }}</h2>
-            <p><b>DoB: </b>{{ $user->dob }}</p>
-            <p><b>Phone Number: </b>{{ $user->phone_number }}</p>
-            <p><b>Passport Number: </b>{{ $user->passport_number }}</p>
-            <p><b>Address: </b>{{ $user->address }}</p>
+    padding: 50px; display: flex; justify-content:space-between">
+            <div>
+                <h2 class="mb-5">{{ $user->first_name . ' ' . $user->last_name }}</h2>
+                <p><b>DoB: </b>{{ $user->dob }}</p>
+                <p><b>Phone Number: </b>{{ $user->phone_number }}</p>
+                <p><b>Passport Number: </b>{{ $user->passport_number }}</p>
+                <p><b>Address: </b>{{ $user->address }}</p>
+            </div>
+            <div>
+                <h1 class="text-center">Recent</h1>
+                <ul>
+                    @foreach ($recents as $recent)
+                        <li><a
+                                href="{{ route('patient-show-history', ['title' => $recent->title, 'id' => $recent->id]) }}">{{ $recent->title }}</a><span>
+                                - {{ $recent->created_at }}</span></li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
         <div style="display: flex; flex-wrap:wrap">
             @foreach ($doctors as $doctor)

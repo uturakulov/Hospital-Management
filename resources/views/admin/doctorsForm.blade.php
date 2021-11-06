@@ -89,7 +89,8 @@
                         value="{{ $doctor->last_name }}">
                     <label for="inputLName">Category</label>
                     <select name="category_id" class="form-control mb-3">
-                        <option value="{{ $doctor->category->id }}">{{ $doctor->category->title }}</option>
+                        <option value="{{ $doctor->category->id }}">{{ $doctor->category->title ?? 'NA' }}
+                        </option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->title }}</option>
                         @endforeach

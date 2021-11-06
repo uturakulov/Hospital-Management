@@ -8,18 +8,43 @@ use DB;
 
 class PatientController extends Controller
 {
+
+    //HOME PAGE OF PATIENT
+
     public function index()
     {
         $user = auth()->user();
 
         $doctors = Doctor::distinct()->get(['category_id']);
 
-        return view('patient.cart', compact('user', 'doctors'));
+        //RAW QUERY TO RETRIEVE RECENT HISTORIES
+        $recents = DB::select("SELECT
+        histories.id,
+        doctor_categories.title,
+        histories.created_at
+    FROM
+        patients
+        JOIN histories ON histories.patient_id = patients.id
+        JOIN doctors ON histories.doctor_id = doctors.id
+        JOIN doctor_categories ON doctors.category_id = doctor_categories.id
+    WHERE
+        histories.patient_id = '$user->id'
+        AND patients.id = '$user->id'
+    ORDER BY
+        histories.created_at DESC
+    LIMIT 5");
+
+        return view('patient.cart', compact('user', 'doctors', 'recents'));
     }
+
+
+    //METHOD FOR HISTORIES PAGE
 
     public function histories($title)
     {
         $user = auth()->user();
+
+        //RAW QUERY TO GET HISTORIES OF CERTAIN DOCTOR BY TITLE
 
         $histories = DB::select("SELECT
         histories.id,
@@ -39,6 +64,8 @@ class PatientController extends Controller
         return view('patient.history', compact('user', 'histories'));
     }
 
+    //ONE HISTORY PAGE
+    
     public function history($title, $id)
     {
         $user = auth()->user();

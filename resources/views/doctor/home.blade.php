@@ -25,19 +25,21 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <h1>{{ $user->category->title }}</h1>
+        <h1>{{ $user->category->title ?? 'NA' }}</h1>
         <h3>{{ $user->first_name . ' ' . $user->last_name }}</h3>
         <a href="{{ route('doctor-add-history') }}" class="btn btn-primary mb-3"><i class="fa fa-plus"></i></a>
 
         <table class="table table-bordered table-hover">
             <tr>
-                <th>Patient</th>
+                <th>Patient First Name</th>
+                <th>Patient Last Name</th>
                 <th>Comment</th>
                 <th>Created</th>
             </tr>
             @foreach ($histories as $history)
                 <tr>
-                    <td>{{ $history->patient->first_name . ' ' . $history->patient->last_name ?? 'NA' }}</td>
+                    <td>{{ $history->patient->first_name ?? 'NA' }}</td>
+                    <td>{{ $history->patient->last_name ?? 'NA' }}</td>
                     <td>{!! strlen($history->comment) > 50 ? substr($history->comment, 0, 50) . '...' : $history->comment !!}
                     </td>
                     <td>{{ $history->created_at }}</td>

@@ -22,8 +22,10 @@
         box-shadow:  -9px 9px 18px #e6e6e6,
         9px -9px 18px #ffffff;
         padding: 50px">
-            <p><b>Patient: </b>{{ $history->patient->first_name . ' ' . $history->patient->last_name }}</p>
-            <p><b>Doctor: </b>{{ $history->doctor->first_name . ' ' . $history->doctor->last_name }}</p>
+            <p><b>Patient: </b>{{ $history->patient->first_name ?? 'NA' }}
+                {{ $history->patient->last_name ?? 'NA' }}</p>
+            <p><b>Doctor: </b>{{ $history->doctor->first_name ?? 'NA' }} {{ $history->doctor->last_name ?? 'NA' }}
+            </p>
             <p><b>Comment: </b>{!! $history->comment !!}</p>
             <p><b>Date: </b>{{ $history->created_at }}</p>
         </div>

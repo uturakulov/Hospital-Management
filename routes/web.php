@@ -23,13 +23,16 @@ Route::get('/', function () {
     return view('index');
 });
 
+//USER AUTH
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('signin', [AuthController::class, 'signin'])->name('signin');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+//ADMIN AUTH
 Route::get('admin-login', [AuthController::class, 'adminLogin'])->name('admin-login');
 Route::post('admin-signin', [AuthController::class, 'adminSignin'])->name('admin-signin');
 
+//DOCTOR SIDE
 Route::get('doctor-home', [DoctorController::class, 'index'])->name('doctor-home');
 Route::get('doctor-add', [DoctorController::class, 'addHistoryView'])->name('doctor-add-history');
 Route::post('doctor-add-history', [DoctorController::class, 'addHistoryStore'])->name('add-history');
@@ -38,10 +41,13 @@ Route::get('doctor-history/edit/{id}', [DoctorController::class, 'editHistory'])
 Route::post('doctor-history/update/{id}', [DoctorController::class, 'updateHistory'])->name('update-history');
 Route::get('doctor-history/delete/{id}', [DoctorController::class, 'deleteHistory'])->name('delete-history');
 
+//PATIENT SIDE
 Route::get('patient-home', [PatientController::class, 'index'])->name('patient-home');
 Route::get('patient-histories/{title}', [PatientController::class, 'histories'])->name('patient-doctor');
 Route::get('patient-histories/{title}/{id}', [PatientController::class, 'history'])->name('patient-show-history');
 
+
+//ADMIN PANEL PATIENTS
 Route::get('admin-home', [AdminController::class, 'index'])->name('admin-home');
 Route::get('admin-patients', [AdminPatientController::class, 'index'])->name('admin-patients');
 Route::get('admin-add-patient', [AdminPatientController::class, 'create'])->name('admin-add-patient');
@@ -51,6 +57,8 @@ Route::get('admin-edit-patient/{id}', [AdminPatientController::class, 'edit'])->
 Route::post('admin-update-patient/{id}', [AdminPatientController::class, 'update'])->name('admin-update-patient');
 Route::get('admin-delete-patient/{id}', [AdminPatientController::class, 'destroy'])->name('admin-delete-patient');
 
+
+//ADMIN PANEL DOCTORS
 Route::get('admin-doctor', [AdminDoctorController::class, 'index'])->name('admin-doctor');
 Route::get('admin-add-doctor', [AdminDoctorController::class, 'create'])->name('admin-add-doctor');
 Route::post('admin-store-doctor', [AdminDoctorController::class, 'store'])->name('admin-store-doctor');

@@ -20,7 +20,7 @@
     </nav>
     <hr>
     <a href="{{ route('patient-home') }}" class="btn btn-secondary ml-5 mt-3" style="width: 10%">&#8592; Back</a>
-    <div class="container">
+    <div class="container d-flex justify-content-around flex-wrap">
         @if (count($histories) == 0)
             <h1 class="alert alert-danger text-center">No history is available :(</h1>
         @else
@@ -28,15 +28,17 @@
                 <div style="border-radius: 50px;
     box-shadow:  -9px 9px 18px #e6e6e6,
     9px -9px 18px #ffffff;
-    padding: 30px; margin-bottom:30px">
-                    <h2 class="mb-5">{{ $history->first_name . ' ' . $history->last_name }}</h2>
-                    <p><b>Title: </b>{{ $history->title }}</p>
-                    <p><b>Comment:
+    padding: 30px; margin-bottom:30px; width:400px">
+                    <h2 class="mb-3">{{ $history->first_name . ' ' . $history->last_name }}</h2>
+                    <p>{{ $history->title }}</p>
+                    {{-- <p><b>Comment:
                         </b>{!! strlen($history->comment) > 50 ? substr($history->comment, 0, 50) . '...' : $history->comment !!}
-                    </p>
-                    <p><b>Created: </b>{{ $history->created_at }}</p>
-                    <a href="{{ route('patient-show-history', ['title' => $history->title, 'id' => $history->id]) }}"
-                        class="btn btn-success"><i class="fa fa-eye"></i></a>
+                    </p> --}}
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('patient-show-history', ['title' => $history->title, 'id' => $history->id]) }}"
+                            class="btn btn-success"><i class="fa fa-eye"></i> Show</a>
+                        <p>{{ $history->created_at }}</p>
+                    </div>
                 </div>
             @endforeach
         @endif
