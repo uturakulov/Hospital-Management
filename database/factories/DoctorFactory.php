@@ -19,6 +19,7 @@ class DoctorFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'phone_number' => $this->faker->phoneNumber(),
             'category_id' => $this->faker->numberBetween(1, 10),
+            'polyclinic_id' => $this->faker->numberBetween(1, 10),
             'name' => $this->faker->firstName() . $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

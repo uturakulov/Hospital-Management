@@ -22,6 +22,7 @@ class CreatePatientsTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('passport_number')->unique();
             $table->text('address')->nullable();
+            $table->foreignId('polyclinic_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

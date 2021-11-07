@@ -21,9 +21,9 @@ class DoctorController extends Controller
     {
         $page = 'add';
 
-        $patients = Patient::all();
-
         $user = auth()->guard('doctor')->user();
+
+        $patients = Patient::where('polyclinic_id', $user->polyclinic_id)->get();
 
         return view('doctor.formHistory', compact('patients', 'user', 'page'));
     }
@@ -52,9 +52,9 @@ class DoctorController extends Controller
 
         $history = History::findOrFail($id);
 
-        $patients = Patient::all();
-
         $user = auth()->guard('doctor')->user();
+
+        $patients = Patient::where('polyclinic_id', $user->polyclinic_id)->get();
 
         return view('doctor.formHistory', compact('history', 'user', 'patients', 'page'));
     }

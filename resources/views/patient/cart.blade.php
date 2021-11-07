@@ -30,6 +30,7 @@
                 <p><b>Phone Number: </b>{{ $user->phone_number }}</p>
                 <p><b>Passport Number: </b>{{ $user->passport_number }}</p>
                 <p><b>Address: </b>{{ $user->address }}</p>
+                <p><b>Polyclinic: </b>{{ $user->polyclinic->title ?? 'NA' }}</p>
             </div>
             <div>
                 <h1 class="text-center">Recent</h1>

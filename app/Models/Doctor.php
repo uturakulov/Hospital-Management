@@ -36,4 +36,9 @@ class Doctor extends Authenticatable
     {
         return $this->belongsTo(DoctorCategory::class, 'category_id', 'id');
     }
+
+    public function polyclinic(): BelongsTo
+    {
+        return $this->belongsTo(Polyclinic::class, 'polyclinic_id', 'id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\DoctorCategory;
+use App\Models\Polyclinic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,7 +36,9 @@ class DoctorController extends Controller
 
         $categories = DoctorCategory::all();
 
-        return view('admin.doctorsForm', compact('page', 'categories'));
+        $polyclinics = Polyclinic::all();
+
+        return view('admin.doctorsForm', compact('page', 'categories', 'polyclinics'));
     }
 
     /**
@@ -63,6 +66,7 @@ class DoctorController extends Controller
         $doctor->name = $request->first_name . $request->last_name;
         $doctor->email = $request->email;
         $doctor->password = Hash::make($request->password);
+        $doctor->polyclinic_id = $request->polyclinic_id;
         $doctor->save();
 
         return redirect()->route('admin-doctor')->with('message', 'Doctor Successfully Added!');
@@ -93,7 +97,9 @@ class DoctorController extends Controller
 
         $page = 'update';
 
-        return view('admin.doctorsForm', compact('page', 'doctor', 'categories'));
+        $polyclinics = Polyclinic::all();
+
+        return view('admin.doctorsForm', compact('page', 'doctor', 'categories', 'polyclinics'));
     }
 
     /**
@@ -115,6 +121,7 @@ class DoctorController extends Controller
         if ($request->password != null) {
             $doctor->password = Hash::make($request->password);
         }
+        $doctor->polyclinic_id = $request->polyclinic_id;
         $doctor->save();
 
         return redirect()->route('admin-doctor')->with('message', 'Doctor Successfully Updated!');

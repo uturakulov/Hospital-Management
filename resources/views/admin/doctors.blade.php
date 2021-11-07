@@ -46,6 +46,7 @@
                 <th>Full Name</th>
                 <th>Phone Number</th>
                 <th>Category</th>
+                <th>Polyclinic</th>
                 <th>Email</th>
                 <th>Actions</th>
             </thead>
@@ -56,6 +57,7 @@
                         <td>{{ $doctor->first_name . ' ' . $doctor->last_name }}</td>
                         <td>{{ $doctor->phone_number }}</td>
                         <td>{{ $doctor->category->title ?? 'NA' }}</td>
+                        <td>{{ $doctor->polyclinic->title ?? 'NA' }}</td>
                         <td>{{ $doctor->email }}</td>
                         <td>
                             {{-- <a href="{{ route('admin-show-doctor', ['id' => $doctor->id]) }}"
@@ -85,7 +87,7 @@
             $('#mytable thead tr').clone(true).appendTo('#mytable thead');
             $('#mytable thead tr:eq(1) th').each(function(i) {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder=" Search ' + title + '" />');
+                $(this).html('<input type="text" class="form-control" placeholder="Search" />');
 
                 $('input', this).on('keyup change', function() {
                     if (table.column(i).search() !== this.value) {

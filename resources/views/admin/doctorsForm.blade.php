@@ -61,6 +61,12 @@
                     <input type="text" name="password" id="inputPassword" class="form-control mb-3">
                 </div>
             </div>
+            <label for="inputLName">Polyclinic</label>
+            <select name="polyclinic_id" class="form-control mb-3">
+                @foreach ($polyclinics as $polyclinic)
+                    <option value="{{ $polyclinic->id }}">{{ $polyclinic->title }}</option>
+                @endforeach
+            </select>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
         </form>
     @else
@@ -107,6 +113,13 @@
                     <input type="text" name="password" id="inputPassword" class="form-control mb-3">
                 </div>
             </div>
+            <label for="inputLName">Polyclinic</label>
+            <select name="polyclinic_id" class="form-control mb-3">
+                <option value="{{ $doctor->polyclinic->id }}">{{ $doctor->polyclinic->title ?? 'NA' }}</option>
+                @foreach ($polyclinics as $polyclinic)
+                    <option value="{{ $polyclinic->id }}">{{ $polyclinic->title }}</option>
+                @endforeach
+            </select>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
         </form>
     @endif

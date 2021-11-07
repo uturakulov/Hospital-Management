@@ -47,6 +47,7 @@
                 <th>Phone Number</th>
                 <th>Date of Birth</th>
                 <th>Passport Number</th>
+                <th>Polyclinic</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Actions</th>
@@ -59,6 +60,7 @@
                         <td>{{ $patient->phone_number }}</td>
                         <td>{{ $patient->dob }}</td>
                         <td>{{ $patient->passport_number }}</td>
+                        <td>{{ $patient->polyclinic->title ?? 'NA' }}</td>
                         <td>{{ $patient->email }}</td>
                         <td>{{ strlen($patient->address) > 50 ? substr($patient->address, 0, 50) . '...' : $patient->address }}
                         </td>

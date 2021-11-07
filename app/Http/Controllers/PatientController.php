@@ -15,7 +15,7 @@ class PatientController extends Controller
     {
         $user = auth()->user();
 
-        $doctors = Doctor::distinct()->get(['category_id']);
+        $doctors = Doctor::distinct()->where('polyclinic_id', $user->polyclinic_id)->get(['category_id']);
 
         //RAW QUERY TO RETRIEVE RECENT HISTORIES
         $recents = DB::select("SELECT
@@ -65,7 +65,7 @@ class PatientController extends Controller
     }
 
     //ONE HISTORY PAGE
-    
+
     public function history($title, $id)
     {
         $user = auth()->user();

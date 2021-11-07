@@ -20,6 +20,7 @@ class PatientFactory extends Factory
             'dob' => now(),
             'phone_number' => $this->faker->phoneNumber(),
             'passport_number' => 'AA' . $this->faker->numberBetween(100000, 1000000),
+            'polyclinic_id' => $this->faker->numberBetween(1, 10),
             'address' => $this->faker->address(),
             'name' => $this->faker->firstName() . $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),

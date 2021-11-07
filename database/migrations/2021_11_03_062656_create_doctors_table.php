@@ -32,6 +32,7 @@ class CreateDoctorsTable extends Migration
             //     'Psychiatrists',
             // ]);
             $table->foreignId('category_id');
+            $table->foreignId('polyclinic_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

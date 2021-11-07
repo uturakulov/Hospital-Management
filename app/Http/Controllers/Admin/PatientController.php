@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
+use App\Models\Polyclinic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,7 +33,9 @@ class PatientController extends Controller
     {
         $page = 'create';
 
-        return view('admin.patientsForm', compact('page'));
+        $polyclinics = Polyclinic::all();
+
+        return view('admin.patientsForm', compact('page', 'polyclinics'));
     }
 
     /**
@@ -64,6 +67,7 @@ class PatientController extends Controller
         $patient->name = $request->first_name . $request->last_name;
         $patient->email = $request->email;
         $patient->password = Hash::make($request->password);
+        $patient->polyclinic_id = $request->polyclinic_id;
         $patient->save();
 
         return redirect()->route('admin-patients')->with('message', 'Patient Successfully Added!');
@@ -92,7 +96,9 @@ class PatientController extends Controller
 
         $patient = Patient::findOrFail($id);
 
-        return view('admin.patientsForm', compact('page', 'patient'));
+        $polyclinics = Polyclinic::all();
+
+        return view('admin.patientsForm', compact('page', 'patient', 'polyclinics'));
     }
 
     /**
@@ -116,6 +122,7 @@ class PatientController extends Controller
         if ($request->password != null) {
             $patient->password = Hash::make($request->password);
         }
+        $patient->polyclinic_id = $request->polyclinic_id;
         $patient->save();
 
         return redirect()->route('admin-patients')->with('message', 'Patient Successfully Updated!');
